@@ -1,10 +1,12 @@
-import { render, waitFor, waitForElementToBeRemoved, screen } from '@testing-library/react'
+import { render } from '@testing-library/react'
 import userEvent from'@testing-library/user-event'
-import Home from './app/page'
+import List from './List';
 
-describe('Home component', () => {
+describe('List component', () => {
   it('should render list items', () => {
-    const { getByText } = render(<Home />);
+    const { getByText } = render(
+      <List pokemons={['yadoran', 'yadon', 'yadoking']} />
+    );
 
     expect(getByText('yadoran')).toBeInTheDocument();
     expect(getByText('yadon')).toBeInTheDocument();
@@ -12,7 +14,9 @@ describe('Home component', () => {
   });
   
   it('should be able to add new item to the list', async () => {
-    const { getByText, getByPlaceholderText, debug } = render(<Home />);
+    const { getByText, getByPlaceholderText } = render(
+      <List pokemons={[]} />
+    );
     const user = userEvent.setup();
 
     const inputElement = getByPlaceholderText('Digite um pokémon');
@@ -25,12 +29,14 @@ describe('Home component', () => {
   });
 
   it('should be able to remove items', async () => {
-    const { getAllByText, queryByText } = render(<Home />);
+    const { getAllByText, queryByText } = render(
+      <List pokemons={['yadoran']} />
+    );
     const user = userEvent.setup();
 
     const removeButtons = getAllByText('Remover');
     await user.click(removeButtons[0]);
 
-    expect(queryByText('gengar')).not.toBeInTheDocument();
+    expect(queryByText('yadoran')).not.toBeInTheDocument();
   });
 })
