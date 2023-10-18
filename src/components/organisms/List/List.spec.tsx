@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react'
 import userEvent from'@testing-library/user-event'
-import List from './List';
+import List from '.';
 
 describe('List component', () => {
   it('should render list items', () => {
