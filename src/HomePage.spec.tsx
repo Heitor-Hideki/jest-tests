@@ -1,21 +1,21 @@
 import { render } from '@testing-library/react'
 import userEvent from'@testing-library/user-event'
-import RedirectButton from '.';
 import mockRouter from 'next-router-mock';
+import Home from './app/page';
 
 jest.mock('next/navigation', () => jest.requireActual('next-router-mock'))
 
 describe('RedirectButton component', () => {
   it('should appear on screen', () => {
     const { getByText } = render(
-      <RedirectButton />
+      <Home />
     );
     expect(getByText('Trocar de página')).toBeInTheDocument();
   });
 
   it('should redirect', async () => {
     const { getByText } = render(
-      <RedirectButton />
+      <Home />
     );
     
     const user = userEvent.setup();

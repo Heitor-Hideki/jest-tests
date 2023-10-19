@@ -1,14 +1,21 @@
 import List from "@/components/organisms/List"
+import RedirectButton from "@/components/organisms/RedirectButton"
+import Image from "next/image"
 import React from "react"
 
 export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-start p-24 bg-pink-400">
+      <Image src="/yadoran.png" alt="yadoran" width="80" height="80" />
       <h1 className="text-2xl mb-8 font-bold">Hello yadoran</h1>
 
       <List 
         pokemons={['yadoran', 'yadon', 'yadoking']} 
       />
+
+      <div className="mt-8"/>
+
+      <RedirectButton />
     </main>
   )
 }
