@@ -7,7 +7,7 @@ const RedirectButton = () => {
   return (
     <button
       onClick={() => {
-        router.push('/yadoran')
+        router.push('/yadoking')
       }}
     >
       Trocar de página

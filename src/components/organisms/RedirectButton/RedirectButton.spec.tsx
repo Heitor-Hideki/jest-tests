@@ -24,7 +24,7 @@ describe('RedirectButton component', () => {
     await user.click(redirectButton)
 
     expect(mockRouter).toMatchObject({ 
-      pathname: "/yadoran",
+      pathname: "/yadoking",
     });
   });
 })
