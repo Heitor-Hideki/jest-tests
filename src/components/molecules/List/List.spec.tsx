@@ -18,7 +18,6 @@ describe('List component', () => {
       <List pokemons={[]} />
     );
     const user = userEvent.setup();
-
     const inputElement = getByPlaceholderText('Digite um pokémon');
     const addButton = getByText('Adicionar');
 
@@ -33,8 +32,8 @@ describe('List component', () => {
       <List pokemons={['yadoran']} />
     );
     const user = userEvent.setup();
-
     const removeButtons = getAllByText('Remover');
+
     await user.click(removeButtons[0]);
 
     expect(queryByText('yadoran')).not.toBeInTheDocument();

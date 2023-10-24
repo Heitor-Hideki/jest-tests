@@ -10,6 +10,7 @@ describe('RedirectButton component', () => {
     const { getByText } = render(
       <RedirectButton />
     );
+
     expect(getByText('Trocar de página')).toBeInTheDocument();
   });
 
@@ -17,10 +18,9 @@ describe('RedirectButton component', () => {
     const { getByText } = render(
       <RedirectButton />
     );
-    
     const user = userEvent.setup();
-
     const redirectButton = getByText('Trocar de página');
+    
     await user.click(redirectButton)
 
     expect(mockRouter).toMatchObject({ 

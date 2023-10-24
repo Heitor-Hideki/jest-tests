@@ -1,5 +1,5 @@
-import List from "@/components/organisms/List"
-import RedirectButton from "@/components/organisms/RedirectButton"
+import RedirectButton from "@/components/atoms/RedirectButton"
+import List from "@/components/molecules/List"
 import Image from "next/image"
 import React from "react"
 
