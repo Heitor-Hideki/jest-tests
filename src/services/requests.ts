@@ -6,6 +6,16 @@ export async function getPokemonSpecies(pokemon: string){
 
     return result
   } catch (error) {
-    return {data: {}};
+    return {data: undefined};
+  }
+}
+
+export async function getPokemon(pokemon: string){
+  try {
+    const result = await pokeApi.get(`pokemon/${pokemon}`);
+
+    return result
+  } catch (error) {
+    return {data: undefined};
   }
 }

@@ -1,11 +1,17 @@
 "use client"
+import { getPokemon } from "@/services/requests";
+import Image from "next/image";
 import React, { useState } from "react"
 
 export default function Pokedex() {
   const [pokeInput, setPokeInput] = useState<string>("");
+  const [pokemon, setPokemon] = useState<any>();
 
-  const onSearch = () => {
+  const onSearch = async () => {
     setPokeInput("")
+
+    const result = await getPokemon(pokeInput)
+    setPokemon(result.data)
   }
 
   return (
@@ -26,6 +32,21 @@ export default function Pokedex() {
       >
         Pesquisar
       </button>
+
+      {
+        pokemon && (
+          <div className="flex flex-col justify-center items-center mt-8">
+            {pokemon.name}
+            <Image 
+              data-testid= {'pokemonSprite'}
+              src={pokemon.sprites.front_default} 
+              alt={`${pokemon.name}-sprite`}
+              height={160}
+              width={160}
+            />
+          </div>
+        )
+      }
     </main>
   )
 }
