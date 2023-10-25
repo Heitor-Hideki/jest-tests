@@ -1,45 +1,93 @@
-import { render } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import userEvent from'@testing-library/user-event'
 import Pokedex from './page';
 
 describe('Pokedex page', () => {
-  it('should render header', () => {
-    const { getByText } = render(
-      <Pokedex />
-    );
-
-    expect(getByText('Pokédex')).toBeInTheDocument();
-  });
+  describe('Header component', () => {
+    it('should render', () => {
+      const { getByText } = render(
+        <Pokedex />
+      );
   
-  it('should have working input', async () => {
-    const { getByPlaceholderText } = render(
-      <Pokedex />
-    );
-    const user = userEvent.setup();
+      expect(getByText('Pokédex')).toBeInTheDocument();
+    });
+  })
 
-    const inputElement = getByPlaceholderText('Digite um pokémon');
+  describe('Input component', () => {
+    it('should be functional', async () => {
+      const { getByPlaceholderText } = render(
+        <Pokedex />
+      );
+      const user = userEvent.setup();
+  
+      const inputElement = getByPlaceholderText('Digite um pokémon');
+  
+      await user.type(inputElement, 'gengar'); 
+  
+      expect(inputElement).toHaveValue('gengar');
+    });
 
-    await user.type(inputElement, 'gengar'); 
+    it('should be empty after submit', async () => {
+      const { getByPlaceholderText, getByTestId } = render(
+        <Pokedex />
+      );
+      
+      const user = userEvent.setup();
+  
+      const inputElement = getByPlaceholderText('Digite um pokémon');
+      const searchButton = getByTestId('searchButton')
+  
+      await user.type(inputElement, 'gengar'); 
+  
+      expect(inputElement).toHaveValue('gengar');
+  
+      await user.click(searchButton)
+  
+      expect(inputElement).toHaveValue('');
+    });
+  })
 
-    expect(inputElement).toHaveValue('gengar');
-  });
-
-  it('should clear input after send', async () => {
-    const { getByPlaceholderText, getByTestId } = render(
-      <Pokedex />
-    );
+  describe('Button', () => {
+    it('should be disabled when input is empty', async () => {
+      const { getByTestId } = render(
+        <Pokedex />
+      );      
+  
+      const searchButton = getByTestId('searchButton') 
+  
+      expect(searchButton).toBeDisabled();
+    });
     
-    const user = userEvent.setup();
+    it('should be enabled when input has text', async () => {
+      const { getByPlaceholderText, getByTestId } = render(
+        <Pokedex />
+      );
+      const user = userEvent.setup();
+      const inputElement = getByPlaceholderText('Digite um pokémon');
+      const searchButton = getByTestId('searchButton')
+  
+      await user.type(inputElement, 'gengar'); 
+  
+      expect(inputElement).toHaveValue('gengar');
+      expect(searchButton).toBeEnabled();
+    });
 
-    const inputElement = getByPlaceholderText('Digite um pokémon');
-    const searchButton = getByTestId('searchButton')
+    it('should display pokemon sprite when request is successful', async () => {
+      const { getByPlaceholderText, getByTestId } = render(
+        <Pokedex />
+      );
+      const user = userEvent.setup();
+      const inputElement = getByPlaceholderText('Digite um pokémon');
+      const searchButton = getByTestId('searchButton')
+  
+      await user.type(inputElement, 'gengar'); 
+  
+      expect(inputElement).toHaveValue('gengar');
 
-    await user.type(inputElement, 'gengar'); 
+      await user.click(searchButton);
 
-    expect(inputElement).toHaveValue('gengar');
-
-    await user.click(searchButton)
-
-    expect(inputElement).toHaveValue('');
-  });
+      const sprite = await screen.findByTestId('pokemonSprite');
+      expect(sprite).toBeInTheDocument();
+    });
+  })
 })
