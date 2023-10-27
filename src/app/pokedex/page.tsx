@@ -12,6 +12,10 @@ export default function Pokedex() {
 
     const result = await getPokemon(pokeInput)
     setPokemon(result.data)
+
+    setTimeout(() => {
+      setPokemon(undefined);
+    }, 3000)
   }
 
   return (
