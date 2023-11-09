@@ -7,24 +7,30 @@ jest.mock('next/navigation', () => jest.requireActual('next-router-mock'))
 
 describe('RedirectButton component', () => {
   it('should appear on screen', () => {
+    const pageName = 'yadoking'
     const { getByText } = render(
-      <RedirectButton />
+      <RedirectButton 
+      pageName={pageName}
+      />
     );
 
-    expect(getByText('Trocar de página')).toBeInTheDocument();
+    expect(getByText(`Navegar para ${pageName}`)).toBeInTheDocument();
   });
 
   it('should redirect', async () => {
+    const pageName = 'yadoking'
     const { getByText } = render(
-      <RedirectButton />
+      <RedirectButton 
+        pageName={pageName}
+      />
     );
     const user = userEvent.setup();
-    const redirectButton = getByText('Trocar de página');
+    const redirectButton = getByText(`Navegar para ${pageName}`);
     
     await user.click(redirectButton)
 
     expect(mockRouter).toMatchObject({
-      pathname: "/yadoking",
+      pathname: `/${pageName}`,
     });
   });
 })
