@@ -14,8 +14,16 @@ export default function Home() {
       />
 
       <div className="mt-8"/>
+      
+      <div className='flex flex-row gap-3'>
+        <RedirectButton 
+          pageName="yadoking"
+        />
+        <RedirectButton 
+          pageName="pokedex"
+        />
+      </div>
 
-      <RedirectButton />
     </main>
   )
 }

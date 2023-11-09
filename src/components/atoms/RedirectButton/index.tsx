@@ -1,16 +1,23 @@
 "use client";
 import { useRouter } from "next/navigation";
 
-const RedirectButton = () => {
+interface IRedirectButton {
+  pageName: string;
+}
+
+const RedirectButton = ({
+  pageName
+}: IRedirectButton) => {
   const router = useRouter();
 
   return (
     <button
+      className="px-3 py-2 bg-yellow-50 rounded-md font-semibold"
       onClick={() => {
-        router.push('/yadoking')
+        router.push(`/${pageName}`)
       }}
     >
-      Trocar de página
+      Navegar para {pageName}
     </button>
   )
 }

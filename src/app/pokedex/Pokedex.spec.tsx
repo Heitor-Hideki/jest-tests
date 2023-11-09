@@ -41,7 +41,7 @@ describe('Pokedex page', () => {
   
       expect(inputElement).toHaveValue('gengar');
   
-      await user.click(searchButton)
+      await user.click(searchButton);
   
       expect(inputElement).toHaveValue('');
     });
@@ -53,7 +53,7 @@ describe('Pokedex page', () => {
         <Pokedex />
       );      
   
-      const searchButton = getByTestId('searchButton') 
+      const searchButton = getByTestId('searchButton');
   
       expect(searchButton).toBeDisabled();
     });
@@ -64,7 +64,7 @@ describe('Pokedex page', () => {
       );
       const user = userEvent.setup();
       const inputElement = getByPlaceholderText('Digite um pokémon');
-      const searchButton = getByTestId('searchButton')
+      const searchButton = getByTestId('searchButton');
   
       await user.type(inputElement, 'gengar'); 
   
